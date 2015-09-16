@@ -7,7 +7,7 @@
  ************************************************************************/
 
 #include<stdio.h>
-#include<malloc.h>
+#include<stdlib.h>
 #define MAXSIZE 100
 typedef char ElemType;
 typedef struct
@@ -44,33 +44,85 @@ int Pop(StackNode *S,ElemType *e)
     S->top--;
 }
 
-int Match(char c)
+int Match(ElemType c,ElemType e)
 {
+    if(c=='{'&&e=='}')
+    {
+        return 1;
+    }
+    else if(c=='['&&e==']')
+    {
+        return 1;
+    }
+    else if(c=='('&&e==')')
+    {
+        return 1;
+    }
+    else
+    {
+        return 0;
+    }
     
 }
 int main()
 {
-    int i=0,e,elem[MAXSIZE];
+    int i=-1,count=-1;
+    ElemType e,elem[MAXSIZE];
     StackNode *S;
     S=(StackNode *)malloc(sizeof(StackNode));
     Init(S);
     while(1)
     {
+        count++;
         scanf("%c",&e);
-        if(e=='#'||i>=100)
+        if(e=='\n'||count>=MAXSIZE-1)
         {
+            count--;
             break;
         }
-        elem[i]=e;
-        i++;
+        elem[count]=e;
     }
-    i=0
-    while(1)
+    printf("%d\n",count);
+    while(i<count)
     {   
+        i++;
         switch(elem[i])
         {
-            case '{'
-            case 
+            case '{':
+            case '[':
+            case '(':
+                Push(S,elem[i]);
+                break;
+            case '}':
+            case ']':
+            case ')':
+                if(i!=count&&S->top==-1)
+                {
+                    printf("Not match,right to much!\n");
+                    exit(0);
+                }
+                Pop(S,&e);
+                if(Match(e,elem[i]))
+                {
+                    if(i==count&&S->top==-1)
+                    {
+                        printf("Match!\n");
+                    }
+                    else if(i==count && S->top!=-1)
+                    {   
+                        printf("Not match,left to much!\n");
+                        exit(0);
+                    }
+                }
+                else   
+                {
+                    printf("not match!\n");
+                    exit(0);
+                }
+                break;
+            default:
+                printf("character is error!\n");
+                exit(0);
         }
     }
 }
