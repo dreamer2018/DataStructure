@@ -31,6 +31,17 @@ LQueue *Init(QNode *Q,LQueue *L)
     return q;
 }
 
+
+int IsEmpty(LQueue *L)
+{
+    if(L->rear->next=L->rear)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+
 int Insert(LQueue *L,ElemType e)
 {
     QNode *s;
@@ -46,15 +57,35 @@ int Insert(LQueue *L,ElemType e)
     return 1;
 }
 
-int Delete(QNode *h)
+int Delete(LQueue *L,ElemType *e)
 {
+    if(IsEmpty(L))
+    {
+        printf("it is empty!\n");
+        return 0;
+    }
     
+    if(L->rear->next->next==L->rear)
+    {
+        SetNull(L) 
+    }
 }
 
-int IsEmpty()
+int SetNull(LQueue *L)
 {
-    
+    QNode *q;
+    q=L->rear;
+    L->rear->next=L->rear;
+    while(q->next!=L->rear)
+    {
+        QNode *p;
+        p=q;
+        q=q->next;
+        free(p);
+    }
 }
 
 int main()
-{}
+{
+    
+}
