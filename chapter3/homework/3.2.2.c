@@ -43,6 +43,7 @@ int Pop(StackNode *S,ElemType *e)
     }
     *e=S->elem[S->top];
     S->top--;
+    return 1;
 }
 
 int Judge(ElemType *elem,int n)
