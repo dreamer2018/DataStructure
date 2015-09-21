@@ -28,7 +28,7 @@ int IsFull(QNode *Q)
 }
 
 //初始化队列
-int Init(QNode *Q)
+void Init(QNode *Q)
 {
     Q->quelen=-1;
 }
