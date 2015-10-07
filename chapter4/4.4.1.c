@@ -1,10 +1,10 @@
 /*************************************************************************
-	> File Name: 4.4.1.c
+	> File Name: 4.c
 	> Author: ZhouPan / github:dreamer2018 
 	> Mail: zhoupans_mail@163.com
 	> Blog: blog.csdn.net/it_dream_er
-    > Declared: Signed on behalf of not only belongs , but also represent a responsibility！
-	> Created Time: Wed 07 Oct 2015 07:40:22 PM CST
+	> Declared: Signed on behalf of not only belongs , but also represent a responsibility！
+	> Created Time: Thu 08 Oct 2015 07:55:10 AM CST
  ************************************************************************/
 
 #include<stdio.h>
@@ -16,7 +16,7 @@ int StrReplace(char *r,char c1,char c2)
     if(r==NULL)
     {
         return 0;
-    }
+    }:
     for(p=r;p<r+strlen(r);p++)
     {
         if(*p==c1)
@@ -26,6 +26,7 @@ int StrReplace(char *r,char c1,char c2)
     }
     return 1;
 }
+
 int StrReverse(char *r)
 {
     int i;
@@ -94,6 +95,7 @@ int StrIndex(char *r1,char *r2,int index)
     }
     return -1;
 }
+
 int main()
 {
     char r[20];
