@@ -1,5 +1,5 @@
 /*************************************************************************
-	> File Name: 4.c
+	> File Name: 4.4.1.c
 	> Author: ZhouPan / github:dreamer2018 
 	> Mail: zhoupans_mail@163.com
 	> Blog: blog.csdn.net/it_dream_er
@@ -16,7 +16,7 @@ int StrReplace(char *r,char c1,char c2)
     if(r==NULL)
     {
         return 0;
-    }:
+    }
     for(p=r;p<r+strlen(r);p++)
     {
         if(*p==c1)
