@@ -128,7 +128,6 @@ int CountLeaf(Bitree root)
     return LCount+RCount;
 }
 
-//树高全局变量
 
 int main()
 {
