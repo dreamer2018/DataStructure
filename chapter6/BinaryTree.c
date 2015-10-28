@@ -127,8 +127,6 @@ int CountLeaf(Bitree root)
     RCount=CountLeaf(root->RChild);  
     return LCount+RCount;
 }
-
-
 int main()
 {
     int Count=0;
