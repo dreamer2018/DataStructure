@@ -133,7 +133,6 @@ int depth;
 //全局变量求树高度
 void CountHigh(Bitree root,int high)
 {   
-}
 int main()
 {
     int Count=0;
