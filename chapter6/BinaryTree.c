@@ -131,7 +131,6 @@ int CountLeaf(Bitree root)
 //树高全局变量
 int depth;
 //全局变量求树高度
-void CountHigh(Bitree root,int high)
 
 int main()
 {
