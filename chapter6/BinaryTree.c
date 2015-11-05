@@ -129,21 +129,48 @@ int CountLeaf(Bitree root)
     return LCount+RCount;
 }
 
-//计算二叉树的度(非全局变量)
-int CountDu(Bitree root)
+//计算二叉树的高(非全局变量)
+int CountHigh(Bitree root)
 {
     int Lhigh,Rhigh,high;
     if(root==NULL)
     {
         return 0;
     }
-    Lhigh=CountDu(root->LChild);
-    Rhigh=CountDu(root->RChild);
-    return high=(Lhigh>Rhigh ? Lhigh:Rhigh);
+    Lhigh=CountHigh(root->LChild);
+    Rhigh=CountHigh(root->RChild);
+    return high=(Lhigh>Rhigh ? Lhigh:Rhigh)+1;
+}
+//求度为二的结点
+void CountDu(Bitree root)
+{
+    if(root)
+    {
+        if(root->LChild!=NULL&&root->RChild!=NULL)
+        {
+            printf("%c\t",root->data);
+        }
+        CountDu(root->LChild);
+        CountDu(root->RChild);
+    }
+}
+//左右子树的转置
+void PreMerge(Bitree root)
+{
+    if(root)
+    {
+        Bitree temp;
+        PreMerge(root->LChild);
+        PreMerge(root->RChild);
+        temp=root->LChild;
+        root->LChild=root->RChild;
+        root->RChild=temp;
+        //printf("%c",root->data);
+    }
 }
 int main()
 {
-    int Count=0;
+    int Count=0,High;
     Bitree root;
     root=Created_2();
     /*
@@ -161,7 +188,13 @@ int main()
     Count=CountLeaf(root);
     printf("\nCount=%d\n",Count);
     */
-    printf("du is %d",CountDu(root));
+    //printf("du is %d",CountDu(root));
+    //CountDu(root);
+   // PreOrder(root);
+    printf("\n");
+    PreMerge(root);
+    PreOrder(root);
+    printf("\n");
 }
 
 
