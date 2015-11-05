@@ -111,6 +111,7 @@ void PrintLeaf(Bitree root)
         PrintLeaf(root->RChild);
     }
 }
+
 //计算出叶子节点个数
 int CountLeaf(Bitree root)
 {
@@ -127,16 +128,31 @@ int CountLeaf(Bitree root)
     RCount=CountLeaf(root->RChild);  
     return LCount+RCount;
 }
+
+//计算二叉树的度(非全局变量)
+int CountDu(Bitree root)
+{
+    int Lhigh,Rhigh,high;
+    if(root==NULL)
+    {
+        return 0;
+    }
+    Lhigh=CountDu(root->LChild);
+    Rhigh=CountDu(root->RChild);
+    return high=(Lhigh>Rhigh ? Lhigh:Rhigh);
+}
 int main()
 {
     int Count=0;
     Bitree root;
     root=Created_2();
+    /*
     //Created_1(&root);
     PreOrder(root);
     printf("\n");
     InOrder(root);
     printf("\n");
+
     PostOrder(root);
     printf("\n");
     CountTree(root);
@@ -144,6 +160,8 @@ int main()
     PrintLeaf(root);
     Count=CountLeaf(root);
     printf("\nCount=%d\n",Count);
+    */
+    printf("du is %d",CountDu(root));
 }
 
 
