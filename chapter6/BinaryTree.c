@@ -193,7 +193,7 @@ int main()
    // PreOrder(root);
    // printf("\n");
     //PreMerge(root);
-    PreOrder(root);
+    //PreOrder(root);
     printf("\n");
 }
 
