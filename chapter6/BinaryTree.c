@@ -194,7 +194,7 @@ int main()
    // printf("\n");
     //PreMerge(root);
     //PreOrder(root);
-    printf("\n");
+    //printf("\n");
 }
 
 
