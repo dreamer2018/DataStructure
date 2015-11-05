@@ -191,7 +191,7 @@ int main()
     //printf("du is %d",CountDu(root));
     //CountDu(root);
    // PreOrder(root);
-    printf("\n");
+   // printf("\n");
     PreMerge(root);
     PreOrder(root);
     printf("\n");
