@@ -99,6 +99,8 @@ BinaryTree *PreCreated()
 //中序创建二叉树
 //后序创建二叉树
 
+//先序打印出从根到叶子结点的路径
+
 int main()
 {
     
