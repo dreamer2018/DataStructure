@@ -192,7 +192,7 @@ int main()
     //CountDu(root);
    // PreOrder(root);
    // printf("\n");
-    PreMerge(root);
+    //PreMerge(root);
     PreOrder(root);
     printf("\n");
 }
