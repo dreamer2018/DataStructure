@@ -168,6 +168,31 @@ void PreMerge(Bitree root)
         //printf("%c",root->data);
     }
 }
+//以二元组形式输出
+void PrintTree(Bitree root,int n)
+{
+    if(root)
+    {
+        printf("(%c,%d)",root->data,n);
+        PrintTree(root->LChild,n+1);
+        PrintTree(root->RChild,n+1);
+    }
+}
+//按层次打印二叉树
+void TreePrint(Bitree root,int n)
+{
+    if(root)
+    {
+        int i;
+        TreePrint(root->RChild,n+1);
+        for(i=0;i<n;i++)
+        {
+            printf("\t");
+        }
+        printf("%c\n",root->data);
+        TreePrint(root->LChild,n+1);
+    }
+}
 int main()
 {
     int Count=0,High;
@@ -195,6 +220,8 @@ int main()
     //PreMerge(root);
     //PreOrder(root);
     //printf("\n");
+    //PrintTree(root,1);
+    TreePrint(root,1);
 }
 
 
