@@ -142,12 +142,14 @@ int CountHigh(Bitree root)
     return high=(Lhigh>Rhigh ? Lhigh:Rhigh)+1;
 }
 //求度为二的结点
+int num=0;
 void CountDu(Bitree root)
 {
     if(root)
     {
         if(root->LChild!=NULL&&root->RChild!=NULL)
         {
+            num++;
             printf("%c\t",root->data);
         }
         CountDu(root->LChild);
