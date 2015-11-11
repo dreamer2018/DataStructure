@@ -51,7 +51,7 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
         {
             h1=h2=h[i];
             *n1=*n2=i;
-           // printf("%d %d\n",*n1,*n2);
+            break;
         }
     }
     printf("%d %d\n",*n1,*n2);
