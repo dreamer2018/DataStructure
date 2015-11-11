@@ -65,6 +65,7 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
         }
         if(h[i].Parent==0 && h[i].Weight>h2.Weight)
         {
+            printf("test\n");
             h2=h[i];
             *n2=i;
         }
