@@ -15,6 +15,18 @@
 #define H 2*N-1
 #endif
 
+
+//定义数据类型
+#define DataType int
+
+//定义二叉树结构体
+typedef struct BinaryTree
+{
+    DataType data;
+    struct BinaryTree *LChild;
+    struct BinaryTree *RChild;
+}BiNode,* Bitree;
+//定义哈夫曼树的结构体
 typedef struct
 {
     int Weight;
@@ -22,7 +34,7 @@ typedef struct
     int LChild;
     int RChild;
 }HufNode;
-
+//初始化哈夫曼数的结点
 void InitHuffTree(int *W,HufNode *h)
 {
     int i;
@@ -41,6 +53,7 @@ void InitHuffTree(int *W,HufNode *h)
         h[i].RChild=0;   
     }
 }
+//找出权值最小的两个
 void FindMin(int n,HufNode *h,int *n1,int *n2)
 {
     int i,j,k=0;
@@ -72,12 +85,14 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
             h1=h[i];
             *n1=i;
         }
+        //这里使用大于等于的目的是防止所有的元素都相等时，n1和n2的值相等
         if(h[i].Parent==0 && h[i].Weight>=h2.Weight)
         {
             h2=h[i];
             *n2=i;
         }
     }
+    //最小的元素已找到，再次找到次小的元素
     for(i=j;i<n;i++)
     {
         if(h[i].Parent==0 && h[i].Weight<h2.Weight && *n1!=i)
@@ -87,6 +102,7 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
         }
     }
 }
+//创建哈夫曼数
 void CreateHuffTree(HufNode *h)
 {
     int i;
@@ -101,6 +117,7 @@ void CreateHuffTree(HufNode *h)
         h[n1].Parent=h[n2].Parent=i+1;
     }
 }
+//打印出哈夫曼树
 void PrintHufTree(HufNode *h)
 {
     int i;
@@ -110,6 +127,32 @@ void PrintHufTree(HufNode *h)
     }
 }
 
+//递归方法创建二叉树(有返回值)
+Bitree Created_2(HufNode *h)
+{
+    int temp;
+    temp=
+    if(temp=='^')
+    {
+        return NULL;
+    }
+    Bitree s;
+    s=(Bitree)malloc(sizeof(BiNode));
+    s->data=temp;
+    s->LChild=Created_2(h);
+    s->RChild=Created_2(h);
+    return s;
+}
+//先序遍历二叉树
+void PreOrder(Bitree root)
+{
+    if(root)
+    {
+        printf("%c\t",root->data);
+        PreOrder(root->LChild);
+        PreOrder(root->RChild);
+    }
+}
 int main()
 {
     HufNode h[H];
