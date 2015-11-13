@@ -55,38 +55,13 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
             }
         }
     }
-    printf("%d %d\n",k,n);
-    if(k==n)
+    for(i=0;i<n;i++)
     {
-        for(i=0;i<n;i++)
+        if(h[i].Parent==0)
         {
-            if(h[i].Parent==0)
-            {
-                h1=h[i];
-                *n1=i;
-                break;
-            }
-        }
-        for(j=i;j<n;j++)
-        {
-            if(h[j].Parent==0)
-            {
-                h2=h[j];
-                *n2=j;
-                break;
-            }
-        }
-    }
-    else
-    {
-        for(i=0;i<n;i++)
-        {
-            if(h[i].Parent==0)
-            {
-                h1=h2=h[i];
-                *n1=*n2=i;
-                break;
-            }
+            h1=h2=h[i];
+            *n1=*n2=i;
+            break;
         }
     }
     j=i;
@@ -97,7 +72,7 @@ void FindMin(int n,HufNode *h,int *n1,int *n2)
             h1=h[i];
             *n1=i;
         }
-        if(h[i].Parent==0 && h[i].Weight>h2.Weight)
+        if(h[i].Parent==0 && h[i].Weight>=h2.Weight)
         {
             h2=h[i];
             *n2=i;
