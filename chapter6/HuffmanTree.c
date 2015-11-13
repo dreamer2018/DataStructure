@@ -126,7 +126,7 @@ void PrintHufTree(HufNode *h)
         printf("%d\t%d\t%d\t%d\t%d\n",i+1,h[i].Weight,h[i].Parent,h[i].LChild,h[i].RChild);
     }
 }
-
+/*
 //递归方法创建二叉树(有返回值)
 Bitree Created_2(HufNode *h)
 {
@@ -153,6 +153,7 @@ void PreOrder(Bitree root)
         PreOrder(root->RChild);
     }
 }
+*/
 int main()
 {
     HufNode h[H];
