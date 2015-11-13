@@ -43,15 +43,50 @@ void InitHuffTree(int *W,HufNode *h)
 }
 void FindMin(int n,HufNode *h,int *n1,int *n2)
 {
-    int i,j;
+    int i,j,k=0;
     HufNode h1,h2;
-    for(i=0;i<n;i++)
+    for(i=1;i<n;i++)
     {
         if(h[i].Parent==0)
         {
-            h1=h2=h[i];
-            *n1=*n2=i;
-            break;
+            if(h[i].Weight==h[i-1].Weight)
+            {
+                k++;
+            }
+        }
+    }
+    printf("%d %d\n",k,n);
+    if(k==n)
+    {
+        for(i=0;i<n;i++)
+        {
+            if(h[i].Parent==0)
+            {
+                h1=h[i];
+                *n1=i;
+                break;
+            }
+        }
+        for(j=i;j<n;j++)
+        {
+            if(h[j].Parent==0)
+            {
+                h2=h[j];
+                *n2=j;
+                break;
+            }
+        }
+    }
+    else
+    {
+        for(i=0;i<n;i++)
+        {
+            if(h[i].Parent==0)
+            {
+                h1=h2=h[i];
+                *n1=*n2=i;
+                break;
+            }
         }
     }
     j=i;
@@ -83,6 +118,7 @@ void CreateHuffTree(HufNode *h)
     int  n1,n2;
     for(i=N;i<H;i++)
     {
+
         FindMin(i,h,&n1,&n2);
         h[i].Weight=h[n1].Weight+h[n2].Weight;
         h[i].LChild=n1+1;
@@ -102,7 +138,7 @@ void PrintHufTree(HufNode *h)
 int main()
 {
     HufNode h[H];
-    int w[N]={1,3,6,9};
+    int w[N]={1,1,1,1};
     InitHuffTree(w,h);
     CreateHuffTree(h);
     PrintHufTree(h);
