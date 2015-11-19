@@ -9,6 +9,8 @@
 
 #include<stdio.h>
 #include<malloc.h>
+#include<string.h>
+
 
 #define N 4
 #ifdef N
@@ -156,9 +158,12 @@ void PreOrder(Bitree root)
 */
 void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
 {
-    int i,j;
+    int i,j,k,m;
+    char temp;
     HufNode b=a;
-    j=n;
+    k=n;
+
+    //获取哈弗曼编码
     for(i=0;;i++)
     {
         if(b.Parent==0)
@@ -166,7 +171,7 @@ void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
             c[i]='\0';
             break;
         }
-        if(j==h[b.Parent].LChild)
+        if(k==h[b.Parent].LChild)
         {
             c[i]='0';
         }
@@ -174,16 +179,33 @@ void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
         {
             c[i]='1';
         }
-        j=b.Parent;
+        k=b.Parent;
         b=h[b.Parent];
+    }
+
+    //将c字符串逆置
+    for(j=i-1,m=0;j>m;j--,m++)
+    {
+        temp=c[j];
+        c[j]=c[m];
+        c[m]=temp;
     }
 }
 int main()
 {
     HufNode h[H];
+    char ch[N];
     int w[N]={1,3,6,9};
+    char sign[N]={'A','B','C','D'};
     InitHuffTree(w,h);
     CreateHuffTree(h);
     PrintHufTree(h);
-    for()
+    int i;
+
+    for(i=0;i<N;i++)
+    {
+        memset(ch,'\0',sizeof(ch));
+        HuffmanCode(h,ch,h[i],i);
+        printf("%c:%s\n",sign[i],ch);
+    }
 }
