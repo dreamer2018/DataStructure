@@ -112,9 +112,9 @@ void CreateHuffTree(HufNode *h)
 
         FindMin(i,h,&n1,&n2);
         h[i].Weight=h[n1].Weight+h[n2].Weight;
-        h[i].LChild=n1+1;
-        h[i].RChild=n2+1;
-        h[n1].Parent=h[n2].Parent=i+1;
+        h[i].LChild=n1;
+        h[i].RChild=n2;
+        h[n1].Parent=h[n2].Parent=i;
     }
 }
 //打印出哈夫曼树
@@ -154,9 +154,25 @@ void PreOrder(Bitree root)
     }
 }
 */
-void HuffmanCode(HufNode *h)
+void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
 {
-    
+    int i,j;
+    HufNode b=a;
+    j=n;
+    for(i=0;;i++)
+    {
+        if(j==h[b.Parent].LChild)
+        {
+            c[i]='0';
+        }
+        else
+        {
+            c[i]='1';
+        }
+        if(h[b.Parent])
+        j=b.Parent;
+        b=h[b.Parent];
+    }
 }
 int main()
 {
