@@ -161,6 +161,11 @@ void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
     j=n;
     for(i=0;;i++)
     {
+        if(b.Parent==0)
+        {
+            c[i]='\0';
+            break;
+        }
         if(j==h[b.Parent].LChild)
         {
             c[i]='0';
@@ -169,7 +174,6 @@ void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
         {
             c[i]='1';
         }
-        if(h[b.Parent])
         j=b.Parent;
         b=h[b.Parent];
     }
@@ -177,8 +181,9 @@ void HuffmanCode(HufNode *h,char *c,HufNode a,int n)
 int main()
 {
     HufNode h[H];
-    int w[N]={1,1,1,1};
+    int w[N]={1,3,6,9};
     InitHuffTree(w,h);
     CreateHuffTree(h);
     PrintHufTree(h);
+    for()
 }
