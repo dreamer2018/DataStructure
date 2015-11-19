@@ -154,6 +154,10 @@ void PreOrder(Bitree root)
     }
 }
 */
+void HuffmanCode(HufNode *h)
+{
+    
+}
 int main()
 {
     HufNode h[H];
