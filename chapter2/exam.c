@@ -66,25 +66,27 @@ SList Merge(SList s1,SList s2)
         q=q->next;
     }
     r=s;
-    while(p->next!=NULL && q->next!=NULL)
+    while(p!=NULL && q!=NULL)
     {
         if(p->data < q->data)
         {
+            printf("test 1\n");
             r->next=p;
             p=p->next;
         }
         else
         {
+            printf("test 2\n");
             r->next=q;
             q=q->next;
         }
         r=r->next;
     }
-    if(p->next!=NULL)
+    if(p!=NULL)
     {
         r->next=p;
     }
-    if(q->next!=NULL)
+    if(q!=NULL)
     {
         r->next=q;
     }
@@ -121,5 +123,6 @@ int main()
     PrintData(s1);
     PrintData(s2);
     s=Merge(s1,s2);
+    printf("\n");
     PrintData(s);
 }
