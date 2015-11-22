@@ -72,7 +72,6 @@ SList Merge(SList s1,SList s2)
         {
             r->next=p;
             p=p->next;
-
         }
         else
         {
