@@ -70,13 +70,11 @@ SList Merge(SList s1,SList s2)
     {
         if(p->data < q->data)
         {
-            printf("test 1\n");
             r->next=p;
             p=p->next;
         }
         else
         {
-            printf("test 2\n");
             r->next=q;
             q=q->next;
         }
@@ -123,6 +121,6 @@ int main()
     PrintData(s1);
     PrintData(s2);
     s=Merge(s1,s2);
-    printf("\n");
+    printf("\t");
     PrintData(s);
 }
