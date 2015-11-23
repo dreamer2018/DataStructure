@@ -3,7 +3,7 @@
 	> Author: ZhouPan / github:dreamer2018 
 	> Mail: zhoupans_mail@163.com
 	> Blog: blog.csdn.net/it_dream_er
-	> Function:无向图（网）邻阶矩阵的创建，遍历
+	> Function:无向图邻阶矩阵的创建，遍历
 	> Created Time: 2015年11月23日 星期一 13时13分36秒
  ************************************************************************************************/
 
@@ -11,7 +11,7 @@
 #include<stdlib.h>
 //最大的数据量
 #define MAX 20
-//定义一个数，0则为无向图，32767(2^31-1)
+
 #define INFINITY 0
 //数据的类型
 typedef char DataType;
@@ -56,12 +56,13 @@ void Created(AdjMatrix *a)
         printf("No.%d條邊：",i+1);
         scanf("%d %d",&add1,&add2);
         getchar();
+        //一个就为有向图，两个就为无向图
         a->arcs[add1][add2]=1;
         a->arcs[add2][add1]=1;
     }
 }
 
-//打印出
+//打印
 void PrintMatrix(AdjMatrix *a)
 {
     int i,j;
