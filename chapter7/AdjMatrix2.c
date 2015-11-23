@@ -63,6 +63,7 @@ void Created(AdjMatrix *a)
         scanf("%d %d",&add1,&add2);
         getchar();
         scanf("%d",&a->weight);
+        //一个就为有向网，两个就为无向网
         a->arcs[add1][add2]=a->weight;
         a->arcs[add2][add1]=a->weight;
     }
