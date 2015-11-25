@@ -60,7 +60,7 @@ void Insert(AdjList *a,int i,DATATYPE d1,DATATYPE d2)
     j=Located(a,d1);
     k=Located(a,d2);
     p=(ArcNode *)malloc(sizeof(ArcNode));
-    p->adj=k+1;
+    p->adj=k;
     p->next=NULL;
     q=a->vertex[j].head;
     if(q==NULL)
@@ -104,35 +104,52 @@ void Created(AdjList *a)
         d2=getchar();
         getchar();
         Insert(a,i,d1,d2);
+        Insert(a,i,d2,d1);
     }
 }
 
-void Vsial(AdjList *a,ArcNode *p)
+//打印出邻接矩阵
+void Print(AdjList *a)
 {
-    printf("%c",a->vertex[p->adj].data);
-    a->vertex[p->adj].sign=1;
+    int i;
+    ArcNode *p,*q;
+    printf("\n\n");
+    for(i=0;i<a->vexnum;i++)
+    {
+        p=a->vertex[i].head;
+        printf("%d : ",i+1);
+        while(p!=NULL)
+        {
+            printf("%d    ",p->adj);
+            p=p->next;
+        }
+        printf("\n");
+    }
+    printf("\n");
 }
 //打印出邻接矩阵
-void DFS(AdjList *a)
+void DFS(AdjList *a,int i)
 {
-
-    int i;
     ArcNode *p;
+    printf("%c\t",a->vertex[i].data);
+    a->vertex[i].sign=1;
     p=a->vertex[i].head;
     while(p)
     {
         if(!a->vertex[p->adj].sign)
         {
-            Vsial(a,p);
+            DFS(a,p->adj);
         }
         p=p->next;
     }
-    printf("\n\n");
 }
 int main()
 {
     AdjList *a;
     a=(AdjList *)malloc(sizeof(AdjList));
     Created(a);
-    DFS(a);
+    printf("\n\n");
+    DFS(a,0);
+    //Print(a);
+    printf("\n\n");
 }
