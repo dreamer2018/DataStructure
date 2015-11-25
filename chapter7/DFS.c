@@ -130,6 +130,7 @@ void Print(AdjList *a)
 //打印出邻接矩阵
 void DFS(AdjList *a,int i)
 {
+   // printf("TEST\n");
     ArcNode *p;
     printf("%c\t",a->vertex[i].data);
     a->vertex[i].sign=1;
@@ -143,13 +144,25 @@ void DFS(AdjList *a,int i)
         p=p->next;
     }
 }
+void DFS_All(AdjList *a)
+{
+    int i;
+    for(i=0;i<a->vexnum;i++)
+    {
+        if(!a->vertex[i].sign)
+        {
+            DFS(a,i);
+        }
+    }
+}
 int main()
 {
     AdjList *a;
     a=(AdjList *)malloc(sizeof(AdjList));
     Created(a);
     printf("\n\n");
-    DFS(a,0);
+    //DFS(a,0);
     //Print(a);
+    DFS_All(a);
     printf("\n\n");
 }
