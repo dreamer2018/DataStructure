@@ -8,7 +8,7 @@
  ************************************************************************************************/
 
 #include<stdio.h>
-#include<malloc.h>
+#include<stdlib.h>
 
 //最大数据量
 #define MAX 100
@@ -19,7 +19,6 @@ typedef  char DATATYPE;
 typedef struct ArcNode
 {
     int adj;
-    int weight;
     struct ArcNode * next;
 }ArcNode;
 
@@ -44,13 +43,16 @@ int Located(AdjList *a,DATATYPE d1)
     {
         if(a->vertex[i].data==d1)
         {
-            
+            return i; 
         }
     }
+    return -1;
 }
 void Created(AdjList *a)
 {
-    int i;
+    int i,j,k;
+    DATATYPE d1,d2;
+    ArcNode *p,*q;
     printf("请输入顶点数和关系数：");
     scanf("%d %d",a->vexnum,a->arcnum);
     getchar();
@@ -58,13 +60,30 @@ void Created(AdjList *a)
     for(i=0;i<a->vexnum;i++)
     {
         scanf("%c",a->vertex[i].data);
+        getchar();
         a->vertex[i].head=NULL;
     }
-    getchar();
     printf("请输入%d个关系：",a->arcnum);
     for(i=0;i<a->arcnum;i++)
     {
-        a->
+        d1=getchar();
+        d2=getchar();
+        j=Located(a,d1);
+        k=Located(a,d2);
+        if(j<0|| k<0)
+        {
+            printf("not this %c",d1);
+            exit(0);
+        }
+        p=(ArcNode *)malloc(sizeof(ArcNode));
+        p->adj=k;
+        p->next=NULL;
+        q=a->vertex[j].head;
+        while(q->next!=NULL)
+        {
+            q=q->next;
+        }
+        q->next=p;
     }
 }
 int main()
