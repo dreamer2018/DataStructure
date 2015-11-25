@@ -3,7 +3,7 @@
 	> Author: ZhouPan / github:dreamer2018 
 	> Mail: zhoupans_mail@163.com
 	> Blog: blog.csdn.net/it_dream_er
-	> Function:图的深度优先搜索
+	> Function:图的深度优先搜索遍历
 	> Created Time: Wed 25 Nov 2015 07:15:22 PM CST
  ************************************************************************************************/
 
@@ -15,7 +15,6 @@
 
 //定义数据类型
 typedef char DATATYPE ;
-
 //定义节点数据结构
 typedef struct ArcNode
 {
@@ -29,6 +28,7 @@ typedef struct ArcNode
 typedef struct  VertexNode
 {
     DATATYPE data;
+    int sign;
     ArcNode * head;
 }VertexNode;
 
@@ -39,6 +39,50 @@ typedef struct
     int vexnum;
     int arcnum;
 }AdjList;
+
+//定义队列的数据类型
+typedef VertexNode QUData;
+
+typedef struct
+{
+    QUData data[MAX];
+    int head;
+    int length;
+}Sequeue;
+
+//初始化队列
+void Init(Sequeue *s)
+{
+    s->head=MAX-1;
+    s->length=0;
+}
+
+//入队
+int InsertQ(Sequeue *s,QUData d)
+{
+    if(s->length<MAX)
+    {
+        s->data[(s->head+1)%MAX]=d;
+        s->length++;
+        return 1;
+    }
+    return 0;
+}
+
+//出队
+int Delete(Sequeue *s,QUData *d)
+{
+    if(s->length>0)
+    {
+        *d=s->data[(s->head+s->length)%MAX];
+        s->length--;
+        return 1;
+    }
+    return 0;
+}
+
+
+
 //定位出d1位于哪个位置
 int Located(AdjList *a,DATATYPE d1)
 {
@@ -109,28 +153,29 @@ void Created(AdjList *a)
 }
 
 //打印出邻接矩阵
-void Print(AdjList *a)
+
+void DFS(AdjList *a)
 {
+
     int i;
-    ArcNode *p,*q;
-    printf("\n\n");
+    ArcNode *p;
     for(i=0;i<a->vexnum;i++)
     {
         p=a->vertex[i].head;
-        printf("%d : ",i+1);
-        while(p!=NULL)
+        while(p)
         {
-            printf("%d    ",p->adj);
+            if(!p->sign)
+            {
+                printf("%c",a->vertex[p->adj].data);
+            }
             p=p->next;
         }
-        printf("\n");
     }
-    printf("\n");
 }
 int main()
 {
     AdjList *a;
     a=(AdjList *)malloc(sizeof(AdjList));
     Created(a);
-    Print(a);
+    DFS(a);
 }
