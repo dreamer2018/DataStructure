@@ -19,7 +19,6 @@ typedef char DATATYPE ;
 typedef struct ArcNode
 {
     int adj;
-    int sign;
     struct ArcNode * next;
 
 }ArcNode;
@@ -74,7 +73,7 @@ int Delete(Sequeue *s,QUData *d)
 {
     if(s->length>0)
     {
-        *d=s->data[(s->head+s->length)%MAX];
+        *d=s->data[(s->head+s->length-1)%MAX];
         s->length--;
         return 1;
     }
@@ -105,9 +104,8 @@ void Insert(AdjList *a,int i,DATATYPE d1,DATATYPE d2)
     j=Located(a,d1);
     k=Located(a,d2);
     p=(ArcNode *)malloc(sizeof(ArcNode));
-    p->adj=k+1;
+    p->adj=k;
     p->next=NULL;
-    p->sign=0;
     q=a->vertex[j].head;
     if(q==NULL)
     {
@@ -149,24 +147,97 @@ void Created(AdjList *a)
         d2=getchar();
         getchar();
         Insert(a,i,d1,d2);
+        Insert(a,i,d2,d1);
     }
 }
 
 //打印出邻接矩阵
-
-void DFS(AdjList *a)
+void Print(AdjList *a)
 {
-
     int i;
-    ArcNode *p;
+    ArcNode *p,*q;
+    printf("\n\n");
     for(i=0;i<a->vexnum;i++)
     {
         p=a->vertex[i].head;
+        printf("%d : ",i);
+        while(p!=NULL)
+        {
+            printf("%d    ",p->adj);
+            p=p->next;
+        }
+        printf("\n");
+    }
+    printf("\n");
+}
+int Index(AdjList *a,DATATYPE d)
+{
+    int i;
+    for(i=0;i<a->vexnum;i++)
+    {
+        if(a->vertex[i].data==d)
+        {
+            return i;
+        }
+    }
+    return 0;
+}
+//打印出邻接矩阵
+void BFS(AdjList *a,int i)
+{
+    Sequeue *s;
+    QUData q;
+    s=(Sequeue *)malloc(sizeof(Sequeue));
+    Init(s);
+    ArcNode *p;
+    if(a->vertex[i].sign==0)
+    {
+        printf("%c ",a->vertex[i].data);
+        a->vertex[i].sign=1;
+    }
+    p=a->vertex[i].head;
+    while(p)
+    {
+        if(!a->vertex[p->adj].sign)
+        {
+            printf("%c ",a->vertex[p->adj].data);
+            a->vertex[p->adj].sign=1;
+            InsertQ(s,a->vertex[p->adj]);
+        }
+        //InsertQ(s,a->vertex[p->adj]);
+        p=p->next;
+    }
+    
+    while(s->length>0)
+    {
+        Delete(s,&q);
+        BFS(a,Index(a,q.data));
+    }
+}
+void BFS_2(AdjList *a,int i)
+{
+    Sequeue *s;
+    QUData q;
+    s=(Sequeue *)malloc(sizeof(Sequeue));
+    Init(s);
+    ArcNode *p;
+    if(a->vertex[i].sign==0)
+    {
+        printf("%c ",a->vertex[i].data);
+        a->vertex[i].sign=1;
+    }
+    InsertQ(s,a->vertex[i]);
+    while(s->length>0)
+    {
+        Delete(s,&q);
+        p=a->vertex[Index(a,q.data)].head;
         while(p)
         {
-            if(!p->sign)
+            if(!a->vertex[p->adj].sign)
             {
-                printf("%c",a->vertex[p->adj].data);
+                printf("%c ",a->vertex[p->adj].data);
+                a->vertex[p->adj].sign=1;
+                InsertQ(s,a->vertex[p->adj]);
             }
             p=p->next;
         }
@@ -177,5 +248,7 @@ int main()
     AdjList *a;
     a=(AdjList *)malloc(sizeof(AdjList));
     Created(a);
-    DFS(a);
+    Print(a);
+    printf("\n\n");
+    BFS_2(a,0);
 }
