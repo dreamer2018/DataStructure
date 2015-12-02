@@ -243,6 +243,17 @@ void BFS_2(AdjList *a,int i)
         }
     }
 }
+void BFS_All(AdjList *a)
+{
+    int i;
+    for(i=0;i<a->vexnum;i++)
+    {
+        if(!a->vertex[i].sign)
+        {
+            BFS(a,i);
+        }
+    }
+}
 int main()
 {
     AdjList *a;
@@ -250,5 +261,5 @@ int main()
     Created(a);
     Print(a);
     printf("\n\n");
-    BFS_2(a,0);
+    BFS_All(a);
 }
