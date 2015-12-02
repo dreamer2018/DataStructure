@@ -55,9 +55,6 @@ void Creat(AdjMatrix *G)
 		//这里应该加一个定位函数，通过节点定位出数组下标
         G->arcs[Index(G->vex,vex1,G->vexnum)][Index(G->vex,vex2,G->vexnum)]=weight;
         G->arcs[Index(G->vex,vex2,G->vexnum)][Index(G->vex,vex1,G->vexnum)]=weight;
-        //或者就直接输入的是节点对应的下标的关系
-        //G->arcs[vex1][vex2]=weight;
-        //G->arcs[vex2][vex1]=weight;
 	}
 }
 
