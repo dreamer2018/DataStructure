@@ -11,21 +11,6 @@ typedef struct
 	int arcsnum;
  } AdjMatrix;
 
-/*
-//通过输入节点，返回其在数组中的下标
-int Index(Vextype *a,Vextype b,int n)  //n为数组的实际存储数据的长度，即无向图节点个数
-{
-    int i;
-    for(i=0;i<=n;i++)
-    {
-        if(a[i]==b)
-        {
-            return i;
-        }
-    }
-    return 0;
-}
-*/
 //用邻接矩阵创建无向网
 void Creat(AdjMatrix *G)
 {
