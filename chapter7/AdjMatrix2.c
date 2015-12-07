@@ -82,6 +82,7 @@ void PrintMatrix(AdjMatrix *a)
         printf("\n");
     }
 }
+
 int main()
 {
     AdjMatrix *a;
