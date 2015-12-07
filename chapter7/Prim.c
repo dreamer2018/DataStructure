@@ -90,16 +90,32 @@ void Prim(AdjMatrix *a,int start)
         int adjvex;
         int lowcost;
     }closedge[MAX];
-    int i,e,k,min;
+    int i,e,k,m,min;
     for(i=0;i<a->vexnum;i++)
     {
         closedge[i].adjvex=start;
         closedge[i].lowcost=a->arcs[start][i];
     }
     closedge[start].lowcost=0;
+    
+    //找出权值最小的边
+    min=INFINITY;
     for(i=0;i<a->vexnum;i++)
     {
-        
+        if(closedge[i].lowcost!=0 && closedge[i].adjvex<min )
+        {
+            m=i;
+            min=closedge[i].lowcost;
+        }
+    }
+    closedge[m].lowcost=0;
+    for(i=0;i<a->vexnum;i++)
+    {
+        if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
+        {
+            closedge[i].adjvex=m;
+            closedge[i].lowcost=a->arcs[m][i];
+        }
     }
 }
 int main()
