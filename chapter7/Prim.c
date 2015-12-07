@@ -33,6 +33,13 @@ typedef struct
 
 }AdjMatrix;
 
+struct 
+{
+    int adjvex;
+    int lowcost;
+}closedge[MAX];
+
+
 //临阶矩阵的创建
 void Created(AdjMatrix *a)
 {
@@ -87,53 +94,54 @@ void PrintMatrix(AdjMatrix *a)
     }
 }
 
+void Print()
+{
+    int i;
+    for(i=0;i<MAX;i++)
+    {
+        printf("%d %d\n",closedge[i].adjvex,closedge[i].lowcost);
+    }
+}
 //Prim算法
 
 void Prim(AdjMatrix *a,int start)
-{
-    struct 
-    {
-        int adjvex;
-        int lowcost;
-    }closedge[MAX];
-
+{    
     int i,j,m,min;
+    closedge[start].lowcost=0;
     for(i=0;i<a->vexnum;i++)
     {
-        closedge[i].adjvex=start;
-        closedge[i].lowcost=a->arcs[start][i];
+        if(i!=start)
+        {
+            closedge[i].adjvex=start;
+            closedge[i].lowcost=a->arcs[start][i];
+        }
     }
-    closedge[start].lowcost=0;
-    
     //找出权值最小的边
-    for(j=0;j<a->vexnum-1;j++)
+    for(j=0;j<a->vexnum;j++)
     {
         min=INFINITY;
-        //printf("%d",a->vexnum);
         for(i=0;i<a->vexnum;i++)
         {
-            //printf("++++++++%d\n",closedge[i].adjvex);
             if(closedge[i].lowcost!=0 && closedge[i].lowcost<min )
             {
                 m=i;
-              //  printf("%d\n",m);
                 min=closedge[i].lowcost;
             }
         }
         closedge[m].lowcost=0;
-        
+        printf("%d___%d\n",j,m);
         //遍历矩阵m列的数据，发现小于的，就更新
         for(i=0;i<a->vexnum;i++)
         {
-            //int j=0;
             if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
             {
-                printf("test %d %d \n",m,i);
-                //printf("%c %c\n",a->data[m],a->data[i]);
+                //printf("%c %c\n",a->data[closedge[i].adjvex],a->data[m]);
+                //printf("+++%d\n",m);
                 closedge[i].adjvex=m;
                 closedge[i].lowcost=a->arcs[m][i];
             }
         }
+        Print();
     }
 }
 int main()
@@ -143,5 +151,4 @@ int main()
     Created(a);
     PrintMatrix(a);
     Prim(a,9);
-    //PrintMatrix(a);
 }
