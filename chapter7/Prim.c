@@ -36,7 +36,8 @@ typedef struct
 //临阶矩阵的创建
 void Created(AdjMatrix *a)
 {
-    int i,j,add1,add2,weight;
+    int i,j,weight;
+    int add1,add2;
     printf("请输入顶点数和边数：");
     scanf("%d %d",&a->vexnum,&a->arcnum);
     getchar();
@@ -58,9 +59,10 @@ void Created(AdjMatrix *a)
     for(i=0;i<a->arcnum;i++)
     {
         printf("No.%d條邊：",i+1);
-        scanf("%d %d",&add1,&add2);
+        scanf("%d %d %d",&add1,&add2,&weight);
         getchar();
-        scanf("%d",&weight);
+        //scanf("%d",&weight);
+        //getchar();
         //一个就为有向网，两个就为无向网
         a->arcs[add1][add2]=weight;
         a->arcs[add2][add1]=weight;
@@ -71,11 +73,15 @@ void Created(AdjMatrix *a)
 void PrintMatrix(AdjMatrix *a)
 {
     int i,j;
+    printf("\n");
     for(i=0;i<a->vexnum;i++)
     {
         for(j=0;j<a->vexnum;j++)
         {
-            printf("%d\t",a->arcs[i][j]);
+            if(a->arcs[i][j]!=INFINITY)
+            {
+                printf("%d\t",a->arcs[i][j]);
+            }   
         }
         printf("\n");
     }
@@ -90,7 +96,8 @@ void Prim(AdjMatrix *a,int start)
         int adjvex;
         int lowcost;
     }closedge[MAX];
-    int i,e,k,m,min;
+
+    int i,j,m,min;
     for(i=0;i<a->vexnum;i++)
     {
         closedge[i].adjvex=start;
@@ -99,26 +106,42 @@ void Prim(AdjMatrix *a,int start)
     closedge[start].lowcost=0;
     
     //找出权值最小的边
-    min=INFINITY;
-    for(i=0;i<a->vexnum;i++)
+    for(j=0;j<a->vexnum-1;j++)
     {
-        if(closedge[i].lowcost!=0 && closedge[i].adjvex<min )
+        min=INFINITY;
+        //printf("%d",a->vexnum);
+        for(i=0;i<a->vexnum;i++)
         {
-            m=i;
-            min=closedge[i].lowcost;
+            //printf("++++++++%d\n",closedge[i].adjvex);
+            if(closedge[i].lowcost!=0 && closedge[i].lowcost<min )
+            {
+                m=i;
+              //  printf("%d\n",m);
+                min=closedge[i].lowcost;
+            }
         }
-    }
-    closedge[m].lowcost=0;
-    for(i=0;i<a->vexnum;i++)
-    {
-        if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
+        closedge[m].lowcost=0;
+        
+        //遍历矩阵m列的数据，发现小于的，就更新
+        for(i=0;i<a->vexnum;i++)
         {
-            closedge[i].adjvex=m;
-            closedge[i].lowcost=a->arcs[m][i];
+            //int j=0;
+            if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
+            {
+                printf("test %d %d \n",m,i);
+                //printf("%c %c\n",a->data[m],a->data[i]);
+                closedge[i].adjvex=m;
+                closedge[i].lowcost=a->arcs[m][i];
+            }
         }
     }
 }
 int main()
 {
-
+    AdjMatrix *a;
+    a=(AdjMatrix *)malloc(sizeof(AdjMatrix));
+    Created(a);
+    PrintMatrix(a);
+    Prim(a,9);
+    //PrintMatrix(a);
 }
