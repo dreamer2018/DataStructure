@@ -39,8 +39,49 @@ typedef struct
 typedef struct
 {
     int degree;  //入度值
-    int sign;   //标记，0表示已被拓扑，1表示未被拓扑
 }degay;
+
+//定义队列的数据类型
+typedef int QUData;
+
+typedef struct
+{
+    QUData data[MAX];
+    int head;
+    int length;
+}Sequeue;
+
+//初始化队列
+void Init(Sequeue *s)
+{
+    s->head=MAX-1;
+    s->length=0;
+}
+
+//入队
+int InsertQ(Sequeue *s,QUData d)
+{
+    if(s->length<MAX)
+    {
+        s->data[(s->head+1)%MAX]=d;
+        s->length++;
+        return 1;
+    }
+    return 0;
+}
+
+//出队
+int Delete(Sequeue *s,QUData *d)
+{
+    if(s->length>0)
+    {
+        *d=s->data[(s->head+s->length-1)%MAX];
+        s->length--;
+        return 1;
+    }
+    return 0;
+}
+
 int Located(AdjList *a,DATATYPE d1)
 {
     int i;
@@ -62,7 +103,7 @@ void Insert(AdjList *a,int i,DATATYPE d1,DATATYPE d2)
     j=Located(a,d1);
     k=Located(a,d2);
     p=(ArcNode *)malloc(sizeof(ArcNode));
-    p->adj=k+1;
+    p->adj=k;
     p->next=NULL;
     q=a->vertex[j].head;
     if(q==NULL)
@@ -107,7 +148,6 @@ void Created(AdjList *a)
         d2=getchar();
         getchar();
         Insert(a,i,d1,d2);
-        Insert(a,i,d2,d1);
     }
 }
 //打印出邻接矩阵
@@ -119,7 +159,7 @@ void Print(AdjList *a)
     for(i=0;i<a->vexnum;i++)
     {
         p=a->vertex[i].head;
-        printf("%d : ",i+1);
+        printf("%d : ",i);
         while(p!=NULL)
         {
             printf("%d    ",p->adj);
@@ -129,13 +169,20 @@ void Print(AdjList *a)
     }
     printf("\n");
 }
+void PrintArray(degay *d,int n)
+{
+    int i;
+    for(i=0;i<n;i++)
+    {
+        printf("%d\n",d[i].degree);
+    }
+}
 void InitArray(AdjList *a,degay *d)
 {
     int i;
     for(i=0;i<a->vexnum;i++)
     {
         d[i].degree=0;
-        d[i].sign=1;
     }
     ArcNode *p;
     for(i=0;i<a->vexnum ;i++)
@@ -143,12 +190,58 @@ void InitArray(AdjList *a,degay *d)
         p=a->vertex[i].head;
         while(p!=NULL)
         {
+            //printf("test %d",p->adj);
             d[p->adj].degree++;
             p=p->next;
         }
     }
 }
-#include<stdio.h>
+int TopSort(AdjList *a)
+{
+    int sign,i,count=0;
+    Sequeue *s;
+    s=(Sequeue *)malloc(sizeof(Sequeue));
+    Init(s);
+    degay d[MAX];
+    //PrintArray(d,a->vexnum);
+    InitArray(a,d);
+    PrintArray(d,a->vexnum);
+    for(i=0;i<a->vexnum;i++)
+    {
+        if(d[i].degree==0)
+        {
+            InsertQ(s,i);
+        }
+    }
+    while(s->length!=0)
+    {
+        int temp;
+        ArcNode *p;
+        Delete(s,&temp);
+        printf("%c\t",a->vertex[temp].data);
+        count++;
+        p=a->vertex[temp].head;
+        while(p!=NULL)
+        {
+            d[p->adj].degree--;
+            if(d[p->adj].degree==0)
+            {
+                InsertQ(s,p->adj);
+            }
+            p=p->next;
+        }
+    }
+    if(count< a->vexnum)
+    {
+        return 0;
+    }
+    return count;
+}
 int main()
 {
+    AdjList *a;
+    a=(AdjList *)malloc(sizeof(AdjList));
+    Created(a);
+    Print(a);
+    TopSort(a);
 }
