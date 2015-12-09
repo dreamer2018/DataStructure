@@ -3,7 +3,7 @@
 	> Author: ZhouPan / github:dreamer2018 
 	> Mail: zhoupans_mail@163.com
 	> Blog: blog.csdn.net/it_dream_er
-	> Function:
+	> Function:Prim 算法求最小生成树
 	> Created Time: Mon 07 Dec 2015 09:29:38 AM CST
  ************************************************************************************************/
 
