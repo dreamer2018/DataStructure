@@ -211,7 +211,6 @@ int TopSort(AdjList *a)
         int temp;
         ArcNode *p;
         Delete(s,&temp);
-
         printf("%c\t",a->vertex[temp].data);
         count++;
         p=a->vertex[temp].head;
@@ -220,6 +219,7 @@ int TopSort(AdjList *a)
             d[p->adj]--;
             if(d[p->adj]==0)
             {
+                printf("\np->adj=%d\n",p->adj);
                 InsertQ(s,p->adj);
             }
             p=p->next;
