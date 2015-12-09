@@ -35,7 +35,6 @@ typedef struct
 
 typedef struct 
 {
-    char data;
     int adjvex;
     int lowcost;
 }Prime;
@@ -98,7 +97,8 @@ void Print(Prime p[],int n)
     int i;
     for(i=0;i<n-1;i++)
     {
-        printf("%d: %c %d %d \n",i,p[i].data,p[i].adjvex,p[i].lowcost );
+        if(p[i].lowcost!=0)
+            printf("%d: %d %d \n",i,p[i].adjvex,p[i].lowcost );
     }
 }
 //Prim算法
@@ -111,41 +111,35 @@ void Prim(AdjMatrix *a,int start)
     {
         if(i!=start)
         {
-            closedge[i].data=a->data[start];
             closedge[i].adjvex=start;
             closedge[i].lowcost=a->arcs[start][i];
         }
     }
     closedge[start].lowcost=0;
-    Print(closedge,a->vexnum);
+    //Print(closedge,a->vexnum);
     //找出权值最小的边
     for(j=0;j<a->vexnum-1;j++)
     {
         min=INFINITY;
         for(i=0;i<a->vexnum;i++)
         {
-            if(closedge[i].lowcost!=0 && closedge[i].lowcost<min )
+            if(closedge[i].lowcost!=0 && closedge[i].lowcost<=min )
             {
                 m=i;
                 min=closedge[i].lowcost;
-                    
-                //Print(closedge,a->vexnum);
-                //printf("_________________________\n");
             }
         }
         closedge[m].lowcost=0;
-        printf("%d\t\n",m);
+        printf("%c %c\n",a->data[closedge[m].adjvex],a->data[m]);
         for(i=0;i<a->vexnum;i++)
         {
             if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
             {
-             //   printf("%c %c\n",closedge[i].data,a->data[m]);
                 closedge[i].adjvex=m;
-                closedge[i].data=a->data[m];
                 closedge[i].lowcost=a->arcs[m][i];
             }
         }
-        Print(closedge,a->vexnum);
+        //Print(closedge,a->vexnum);
     }
 }
 int main()
