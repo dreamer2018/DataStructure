@@ -33,11 +33,12 @@ typedef struct
 
 }AdjMatrix;
 
-struct 
+typedef struct 
 {
+    char data;
     int adjvex;
     int lowcost;
-}closedge[MAX];
+}Prime;
 
 
 //临阶矩阵的创建
@@ -68,9 +69,6 @@ void Created(AdjMatrix *a)
         printf("No.%d條邊：",i+1);
         scanf("%d %d %d",&add1,&add2,&weight);
         getchar();
-        //scanf("%d",&weight);
-        //getchar();
-        //一个就为有向网，两个就为无向网
         a->arcs[add1][add2]=weight;
         a->arcs[add2][add1]=weight;
     }
@@ -83,6 +81,7 @@ void PrintMatrix(AdjMatrix *a)
     printf("\n");
     for(i=0;i<a->vexnum;i++)
     {
+        printf("%c:\t",a->data[i]);
         for(j=0;j<a->vexnum;j++)
         {
             if(a->arcs[i][j]!=INFINITY)
@@ -94,12 +93,12 @@ void PrintMatrix(AdjMatrix *a)
     }
 }
 
-void Print()
+void Print(Prime p[],int n)
 {
     int i;
-    for(i=0;i<MAX;i++)
+    for(i=0;i<n-1;i++)
     {
-        printf("%d %d\n",closedge[i].adjvex,closedge[i].lowcost);
+        printf("%d: %c %d %d \n",i,p[i].data,p[i].adjvex,p[i].lowcost );
     }
 }
 //Prim算法
@@ -107,17 +106,20 @@ void Print()
 void Prim(AdjMatrix *a,int start)
 {    
     int i,j,m,min;
-    closedge[start].lowcost=0;
+    Prime closedge[a->vexnum];
     for(i=0;i<a->vexnum;i++)
     {
         if(i!=start)
         {
+            closedge[i].data=a->data[start];
             closedge[i].adjvex=start;
             closedge[i].lowcost=a->arcs[start][i];
         }
     }
+    closedge[start].lowcost=0;
+    Print(closedge,a->vexnum);
     //找出权值最小的边
-    for(j=0;j<a->vexnum;j++)
+    for(j=0;j<a->vexnum-1;j++)
     {
         min=INFINITY;
         for(i=0;i<a->vexnum;i++)
@@ -126,22 +128,24 @@ void Prim(AdjMatrix *a,int start)
             {
                 m=i;
                 min=closedge[i].lowcost;
+                    
+                //Print(closedge,a->vexnum);
+                //printf("_________________________\n");
             }
         }
         closedge[m].lowcost=0;
-        printf("%d___%d\n",j,m);
-        //遍历矩阵m列的数据，发现小于的，就更新
+        printf("%d\t\n",m);
         for(i=0;i<a->vexnum;i++)
         {
             if(i!=m && a->arcs[m][i] < closedge[i].lowcost)
             {
-                //printf("%c %c\n",a->data[closedge[i].adjvex],a->data[m]);
-                //printf("+++%d\n",m);
+             //   printf("%c %c\n",closedge[i].data,a->data[m]);
                 closedge[i].adjvex=m;
+                closedge[i].data=a->data[m];
                 closedge[i].lowcost=a->arcs[m][i];
             }
         }
-        Print();
+        Print(closedge,a->vexnum);
     }
 }
 int main()
