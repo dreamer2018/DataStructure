@@ -35,13 +35,7 @@ typedef struct
     VertexNode vertex[MAX];  //顶点数组
     int vexnum;     //顶点数
     int arcnum;     //弧数
-}AdjList;
-typedef struct
-{
-    int degree;  //入度值
-}degay;
-
-//定义队列的数据类型
+}AdjList;//定义队列的数据类型
 typedef int QUData;
 
 typedef struct
@@ -169,20 +163,20 @@ void Print(AdjList *a)
     }
     printf("\n");
 }
-void PrintArray(degay *d,int n)
+void PrintArray(int *d,int n)
 {
     int i;
     for(i=0;i<n;i++)
     {
-        printf("%d\n",d[i].degree);
+        printf("%d\n",d[i]);
     }
 }
-void InitArray(AdjList *a,degay *d)
+void InitArray(AdjList *a,int *d)
 {
     int i;
     for(i=0;i<a->vexnum;i++)
     {
-        d[i].degree=0;
+        d[i]=0;
     }
     ArcNode *p;
     for(i=0;i<a->vexnum ;i++)
@@ -191,7 +185,7 @@ void InitArray(AdjList *a,degay *d)
         while(p!=NULL)
         {
             //printf("test %d",p->adj);
-            d[p->adj].degree++;
+            d[p->adj]++;
             p=p->next;
         }
     }
@@ -202,13 +196,12 @@ int TopSort(AdjList *a)
     Sequeue *s;
     s=(Sequeue *)malloc(sizeof(Sequeue));
     Init(s);
-    degay d[MAX];
-    //PrintArray(d,a->vexnum);
+    int d[MAX];
     InitArray(a,d);
     PrintArray(d,a->vexnum);
     for(i=0;i<a->vexnum;i++)
     {
-        if(d[i].degree==0)
+        if(d[i]==0)
         {
             InsertQ(s,i);
         }
@@ -218,13 +211,14 @@ int TopSort(AdjList *a)
         int temp;
         ArcNode *p;
         Delete(s,&temp);
+
         printf("%c\t",a->vertex[temp].data);
         count++;
         p=a->vertex[temp].head;
         while(p!=NULL)
         {
-            d[p->adj].degree--;
-            if(d[p->adj].degree==0)
+            d[p->adj]--;
+            if(d[p->adj]==0)
             {
                 InsertQ(s,p->adj);
             }
