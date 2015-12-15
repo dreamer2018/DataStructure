@@ -18,12 +18,11 @@ typedef struct BinSerach
     struct BinSerach *RChild;
 }BST;
 
-//创建二叉排序数
-void Created(BST **b,DATATYPE tmp)
+//创建二叉排序数的插入
+void Insert(BST **b,DATATYPE tmp)
 {
     if(*b==NULL)
     {
-        printf("test__1\n");
         *b=(BST *)malloc(sizeof(BST));
         (*b)->data=tmp;
         (*b)->LChild=NULL;
@@ -31,30 +30,20 @@ void Created(BST **b,DATATYPE tmp)
     }
     else
     {
-        printf("test__2\n");
         if(tmp > (*b)->data)
         {
-            Created(&(*b)->RChild,tmp);
+            Insert(&(*b)->RChild,tmp);
         }
         if(tmp < (*b)->data)
         {
-            Created(&(*b)->LChild,tmp);
+            Insert(&(*b)->LChild,tmp);
         }
     }
 }
-void Print(BST *b)
-{
-    if(b!=NULL)
-    {
-        printf("%d",b->data);
-        Print(b->LChild);
-        Print(b->RChild);
-    }
-}
-int main()
+//二叉排序树的创建
+void Created(BST **b)
 {
     DATATYPE tmp;
-    BST *b=NULL;
     while(1)
     {
         scanf("%d",&tmp);
@@ -63,7 +52,76 @@ int main()
         {
             break;
         }
-        Created(&b,tmp);
+        Insert(b,tmp);
+    } 
+}
+void Print(BST *b)
+{
+    if(b!=NULL)
+    {
+        Print(b->LChild);
+        printf("%d\t",b->data);
+        Print(b->RChild);
     }
-    Print(b);
+}
+//非递归实现
+BST *SerachBST(BST *b,DATATYPE d)
+{
+    BST *t;
+    t=b;
+    if(b==NULL)
+    {
+        return NULL;
+    }
+    while(t)
+    {
+        if(t->data==d)
+        {
+            return t;
+        }
+        else if(t->data < d)
+        {
+            t=t->RChild;
+        }
+        else
+        {
+            t=t->LChild;
+        }
+    }
+}
+//递归实现
+BST *SerachBST2(BST *b,DATATYPE d)
+{
+    if(b==NULL)
+    {
+        return NULL;
+    }
+    if(b->data==d)
+    {
+        return b;
+    }
+    else if(b->data < d)
+    {
+        return SerachBST(b->RChild,d);
+    }
+    else
+    {
+        return SerachBST(b->LChild ,d);
+    }
+    
+}
+
+int main()
+{
+    BST *b=NULL,*p=NULL;
+    Created(&b);
+    p=SerachBST2(b,80);
+    if(p!=NULL)
+    {
+        printf("%d\n",p->data);
+    }
+    else
+    {
+        printf("Not Found\n");
+    }
 }
