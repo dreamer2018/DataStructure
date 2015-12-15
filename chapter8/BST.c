@@ -30,10 +30,13 @@ void Created(BST *b,DATATYPE tmp)
     }
     else
     {
-        if(tmp>b->data)
+        if(tmp > b->data)
+        {
+            Created(b->RChild,tmp);
+        }
+        if(tmp < b->data)
         {
             Created(b->LChild,tmp);
-            Created(b->RChild,tmp);
         }
     }
 }
