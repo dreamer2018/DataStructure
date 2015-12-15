@@ -19,24 +19,26 @@ typedef struct BinSerach
 }BST;
 
 //创建二叉排序数
-void Created(BST *b,DATATYPE tmp)
+void Created(BST **b,DATATYPE tmp)
 {
-    if(b==NULL)
+    if(*b==NULL)
     {
-        b=(BST *)malloc(sizeof(BST));
-        b->data=tmp;
-        b->LChild=NULL;
-        b->RChild=NULL;
+        printf("test__1\n");
+        *b=(BST *)malloc(sizeof(BST));
+        (*b)->data=tmp;
+        (*b)->LChild=NULL;
+        (*b)->RChild=NULL;
     }
     else
     {
-        if(tmp > b->data)
+        printf("test__2\n");
+        if(tmp > (*b)->data)
         {
-            Created(b->RChild,tmp);
+            Created(&(*b)->RChild,tmp);
         }
-        if(tmp < b->data)
+        if(tmp < (*b)->data)
         {
-            Created(b->LChild,tmp);
+            Created(&(*b)->LChild,tmp);
         }
     }
 }
@@ -52,7 +54,7 @@ void Print(BST *b)
 int main()
 {
     DATATYPE tmp;
-    BST *b;
+    BST *b=NULL;
     while(1)
     {
         scanf("%d",&tmp);
@@ -61,6 +63,7 @@ int main()
         {
             break;
         }
-        Created(b,tmp);
+        Created(&b,tmp);
     }
+    Print(b);
 }
