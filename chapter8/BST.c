@@ -110,21 +110,63 @@ BST *SerachBST2(BST *b,DATATYPE d)
     }
     
 }
-void DeleteBST(BST *b,DATATYPE d)
+DATATYPE DeleteBST(BST *b,DATATYPE d)
 {
-    BST *p,*q;
-    p=SerachBST(b,d);
-    //当找不到此节点时
+    DATATYPE tmp=0;
+    BST *t=NULL,*p,*q;
+    p=b;
+    while(p)
+    {
+        if(p->data==DATATYPE)
+        {
+            break;
+        }
+        t=p;
+        if(p->key>k)
+        {
+            p=p->LChild;
+        }
+        else
+        {
+            p=p->RChild;
+        }
+    }
+    //当找不到此节点时.直接结束
     if(p==NULL)
     {
-
+        return tmp;
     }
+    //当找到的是叶子节点
     if(p->RChild==NULL && p->LChild==NULL)
     {
         q=p;
         p=NULL;
+        tmp=q->data;
         free(q);
+        return tmp;
     }
+    //当找到的是单枝节点
+    if(p->RChild==NULL || p->LChild==NULL)
+    {
+        //右子数为空时
+        if(p->RChild == NULL)
+        {
+            q=p;
+            p=p->RChild;
+            tmp=q->data;
+            free(q);
+        }
+        //左子树为空时
+        if(p->LChild == NULL)
+        {
+            q=p;
+            p=p->LChild;
+            tmp=q->data;
+            free(q);
+        }
+    }
+    //找到的是左右子树都有的节点
+    
 }
 int main()
 {
