@@ -110,7 +110,22 @@ BST *SerachBST2(BST *b,DATATYPE d)
     }
     
 }
+void DeleteBST(BST *b,DATATYPE d)
+{
+    BST *p,*q;
+    p=SerachBST(b,d);
+    //当找不到此节点时
+    if(p==NULL)
+    {
 
+    }
+    if(p->RChild==NULL && p->LChild==NULL)
+    {
+        q=p;
+        p=NULL;
+        free(q);
+    }
+}
 int main()
 {
     BST *b=NULL,*p=NULL;
