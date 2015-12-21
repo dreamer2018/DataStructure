@@ -40,7 +40,7 @@ void BiInsertSort(DATATYPE *data,int n)
             while(low<=high)
             {
                 mid=(high+low)/2;
-                if(mid < data[0])
+                if(data[mid] < data[0])
                 {
                     low=mid+1;
                 }
@@ -83,6 +83,6 @@ void main()
         data[i]=temp;
     }
     Print(data,i);
-    InsertSort(data,i);
+    BiInsertSort(data,i);
     Print(data,i);
 }
