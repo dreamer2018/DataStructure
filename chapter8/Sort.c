@@ -26,6 +26,37 @@ void InsertSort(DATATYPE *data,int n)
         }
     }
 }
+void BiInsertSort(DATATYPE *data,int n)
+{
+    int i,j;
+    int low,high,mid;
+    for(i=2;i<n;i++)
+    {
+        if(data[i]<data[i-1])
+        {
+            data[0]=data[i];
+            low=1;
+            high=i-1;      
+            while(low<=high)
+            {
+                mid=(high+low)/2;
+                if(mid < data[0])
+                {
+                    low=mid+1;
+                }
+                else
+                {
+                    high=mid-1;
+                }
+            }
+            for(j=i-1;j>=low;j--)
+            {
+                data[j+1]=data[j];
+            }
+            data[low]=data[0];
+        }
+    }
+}
 void Print(DATATYPE *data ,int n)
 {
     printf("\n");
