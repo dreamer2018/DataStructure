@@ -154,7 +154,7 @@ BST *DeleteBST(BST *b,DATATYPE d)
         }
         else
         {
-            f->LChild=p->RChild;
+            f->RChild=p->RChild;
         }
         free(p);
     }
@@ -167,7 +167,7 @@ BST *DeleteBST(BST *b,DATATYPE d)
             q=s;
             s=s->RChild;
         }
-        if(q=p)
+        if(q==p)
         {
             q->LChild=s->LChild;
         }
@@ -182,15 +182,12 @@ BST *DeleteBST(BST *b,DATATYPE d)
 }
 int main()
 {
-    BST *b=NULL,*p=NULL;
+    BST *b=NULL,*p=NULL,*q;
     Created(&b);
-    p=SerachBST2(b,80);
-    if(p!=NULL)
-    {
-        printf("%d\n",p->data);
-    }
-    else
-    {
-        printf("Not Found\n");
-    }
+    printf("\n");
+    Print(b);
+    printf("\n");
+    q=DeleteBST(b,72);
+    Print(q);
+    printf("\n");
 }
