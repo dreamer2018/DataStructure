@@ -115,14 +115,16 @@ BST *DeleteBST(BST *b,DATATYPE d)
     BST *p,*f,*s,*q;
     p=b;
     f=NULL;
+
+    //找出要删除的节点
     while(p)
     {
-        if(p->key==d)
+        if(p->data==d)
         {
             break;
         }
-        f=p;
-        if(p->key > d)
+        f=p; //f记录节点的父节点
+        if(p->data > d)
         {
             p=p->LChild;
         }
@@ -131,18 +133,23 @@ BST *DeleteBST(BST *b,DATATYPE d)
             p=p->RChild;
         }
     }
+    //如果要删除的节点不存在，则直接返回
     if(p==NULL)
     {
-        return bst;
+        return b;
     }
+    //单枝节点
     if(p->LChild == NULL)
     {
+        //f 等于NULL，则表示是要删的是根结点
         if(f==NULL)
         {
-            bst=p->RChild;
+            // 要删的是根结点，且左子树为空
+            b=p->RChild;
         }
         else if (f->LChild == p)
         {
+
             f->LChild = p->RChild;
         }
         else
@@ -151,6 +158,27 @@ BST *DeleteBST(BST *b,DATATYPE d)
         }
         free(p);
     }
+    else
+    {
+        q=p;
+        s=p->LChild;
+        while(s->RChild)
+        {
+            q=s;
+            s=s->RChild;
+        }
+        if(q=p)
+        {
+            q->LChild=s->LChild;
+        }
+        else
+        {
+            q->RChild=s->LChild;
+        }
+        p->data=s->data;
+        free(s);
+    }
+    return b;
 }
 int main()
 {
